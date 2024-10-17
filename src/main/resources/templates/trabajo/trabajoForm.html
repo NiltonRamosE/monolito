@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="disenoBase::site-head"></head>
+<body>
+    <header th:replace="disenoBase::site-header"></header>
+    <main role="main">
+        <div class="container" id="divCasoForm">
+            <div class="page-header">
+                <h4 class="text-primary">Datos de Trabajo</h4>
+            </div>
+            <div class="container">
+                <form th:object="${trabajo}" th:action="@{/trabajo/nuevo}" method="post">
+                    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>¡Un inconveniente!</strong> Por favor verifique los campos.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- <label for="inputID">ID: </label> -->
+                        <input type="hidden" class="form-control disabled" id="inputID" placeholder="Ingrese ID" th:field="*{id}" th:value="*{id}" />
+                        <span class="help-block" th:if="${#fields.hasErrors('id')}">
+                            <small th:errors="*{id}" class="text-danger">ID error</small>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputDescripcion">Descripción: </label>
+                        <input type="text" class="form-control" id="inputDescripcion" placeholder="Ingrese descripción"
+                               th:class="${#fields.hasErrors('descripcion')} ? 'form-control alert-danger' : 'form-control'"
+                               th:field="*{descripcion}" th:value="*{descripcion}" />
+                        <span class="help-block" th:if="${#fields.hasErrors('descripcion')}">
+                            <small th:errors="*{descripcion}" class="text-danger">Descripción error</small>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="selectCliente">Cliente: </label>
+                        <select id="selectNombre" name="cliente.id"
+                                th:class="${#fields.hasErrors('cliente.id')} ? 'form-control alert-danger' : 'form-control'">
+                            <option th:each="scliente : ${listaClientes}" th:value="${scliente.id}"
+                                    th:text="${scliente.apellido} + ', ' + ${scliente.nombre}"
+                                    th:selected="${scliente.id} == *{cliente.id}">
+                            </option>
+                        </select>
+                        <span class="help-block" th:if="${#fields.hasErrors('cliente.id')}">
+                            <small th:errors="*{cliente.id}" class="text-danger">Cliente error</small>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputLargo">Largo (en metros): </label>
+                        <input type="text" id="inputLargo" placeholder="Ingrese largo (metros)"
+                               th:class="${#fields.hasErrors('largo')} ? 'form-control alert-danger' : 'form-control'"
+                               th:field="*{largo}" th:value="*{largo}" />
+                        <span class="help-block" th:if="${#fields.hasErrors('largo')}">
+                            <small th:errors="*{largo}" class="text-danger">Largo error</small>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputAncho">Ancho (en metros): </label>
+                        <input type="text" id="inputAncho" placeholder="Ingrese ancho (metros)"
+                               th:class="${#fields.hasErrors('ancho')} ? 'form-control alert-danger' : 'form-control'"
+                               th:field="*{ancho}" th:value="*{ancho}" />
+                        <span class="help-block" th:if="${#fields.hasErrors('ancho')}">
+                            <small th:errors="*{ancho}" class="text-danger">Ancho error</small>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="selectTarifa">Tarifa: </label>
+                        <select id="selectTarifa" name="tarifa.id"
+                                th:class="${#fields.hasErrors('tarifa.id')} ? 'form-control alert-danger' : 'form-control'">
+                            <option th:each="starifa : ${listaTarifas}" th:value="${starifa.id}"
+                                    th:text="${starifa.descripcion} + ' (' + ${starifa.precio} + ')'"
+                                    th:selected="${starifa.id} == *{tarifa.id}">
+                            </option>
+                        </select>
+                        <span class="help-block" th:if="${#fields.hasErrors('tarifa.id')}">
+                            <small th:errors="*{tarifa.id}" class="text-danger">Tarifa error</small>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputCosto">Costo: </label>
+                        <input type="text" id="inputCosto" placeholder="Ingrese costo"
+                               th:class="${#fields.hasErrors('costo')} ? 'form-control alert-danger' : 'form-control'"
+                               th:field="*{costo}" th:value="*{costo}" />
+                        <span class="help-block" th:if="${#fields.hasErrors('costo')}">
+                            <small th:errors="*{costo}" class="text-danger">Costo error</small>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputFechaTrabajo">Fecha de Trabajo: </label>
+                        <input type="date" id="inputFechaTrabajo"
+                               th:class="${#fields.hasErrors('fechaTrabajo')} ? 'form-control alert-danger' : 'form-control'"
+                               th:field="*{fechaTrabajo}" th:value="*{fechaTrabajo}" />
+                        <span class="help-block" th:if="${#fields.hasErrors('fechaTrabajo')}">
+                            <small th:errors="*{fechaTrabajo}" class="text-danger">Error en fecha de trabajo</small>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputFechaEntrega">Fecha de Entrega: </label>
+                        <input type="date" id="inputFechaEntrega"
+                               th:class="${#fields.hasErrors('fechaEntrega')} ? 'form-control alert-danger' : 'form-control'"
+                               th:field="*{fechaEntrega}" th:value="*{fechaEntrega}" />
+                        <span class="help-block" th:if="${#fields.hasErrors('fechaEntrega')}">
+                            <small th:errors="*{fechaEntrega}" class="text-danger">Error en fecha de entrega</small>
+                        </span>
+                    </div>
+
+                    <br>
+                    <button type="submit" class="btn btn-outline-primary">Aceptar</button>
+                    <a class="btn btn-outline-secondary" th:href="@{/trabajo/index}" role="button">Regresar</a>
+                </form>
+            </div>
+        </div>
+        <div class="container" id="divCasoRes" style="display: none;"></div>
+    </main>
+    <footer th:replace="disenoBase::site-footer"></footer>
+    <div th:replace="disenoBase::site-bootstrap"></div>
+</body>
+</html>
