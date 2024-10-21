@@ -33,25 +33,17 @@
 			                               'En Proceso' : 'Terminado')">
 			                    Estado
 			                </h5>
-			                <p class="card-text"
-			                   th:text="${asignacion.empleado != null} ? 
-			                              ${asignacion.empleado.apellido} + ', ' + 
-			                               ${asignacion.empleado.nombre} : 
-			                              'Sin responsable asignado'}">
+			                <p class="card-text" th:text="${asignacion.empleado != null} ?
+									${asignacion.empleado.apellido} + ', ' + ${asignacion.empleado.nombre} : 'Sin responsable asignado'">
 			                   Responsable.
 			                </p>
-			                <p th:text="${asignacion.fechaInicio != null} ? 
-			                              'Iniciado: ' + 
-			                               ${#calendars.format(asignacion.fechaInicio, 'dd/MM/yyyy')} : 
-			                              '(Sin iniciar)'}">
-			                   Iniciado
-			                </p>
-			                <p th:text="${asignacion.fechaInicio != null} ? 
-			                              'Terminado: ' + 
-			                               ${#calendars.format(asignacion.fechaInicio, 'dd/MM/yyyy')} : 
-			                              '(pendiente)'}">
-			                   Finalizado
-			                </p>
+							<p th:text="${asignacion.fechaInicio != null ? 'Iniciado: ' + #calendars.format(asignacion.fechaInicio, 'dd/MM/yyyy') : '(Sin iniciar)'}">
+							    Iniciado
+							</p>
+							<p th:text="${asignacion.fechaFin != null ? 'Terminado: ' + #calendars.format(asignacion.fechaFin, 'dd/MM/yyyy') : '(pendiente)'}">
+							    Finalizado
+							</p>
+
 			            </div>
 			        </div>
 			    </div>
